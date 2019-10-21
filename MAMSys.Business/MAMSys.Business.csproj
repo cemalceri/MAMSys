@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MAMSys.DataAccess\MAMSys.DataAccess.csproj" />
+    <ProjectReference Include="..\MAMSys.Entites\MAMSys.Entites.csproj" />
+  </ItemGroup>
+
+</Project>
