@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MAMSys.DataAccess\MAMSys.DataAccess.csproj" />
     <ProjectReference Include="..\MAMSys.Entites\MAMSys.Entites.csproj" />
   </ItemGroup>

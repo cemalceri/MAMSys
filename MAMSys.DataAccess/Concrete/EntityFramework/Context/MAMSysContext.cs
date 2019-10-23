@@ -12,7 +12,7 @@ namespace MAMSys.DataAccess.Concrete.EntityFramework.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlServer(@"Data Source=K2PC1UGE55\SQLEXPRESS; Initial Catalog=MAMSys; Integrated Security=SSPI");
         }
 
         public DbSet<Animal> Animals { get; set; }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MAMSys.Business.Abstract;
+﻿using MAMSys.Business.Abstract;
 using MAMSys.Entites.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MAMSys.WebAPI.Controllers
@@ -13,7 +8,7 @@ namespace MAMSys.WebAPI.Controllers
     [ApiController]
     public class AnimalsController : ControllerBase
     {
-        private IAnimalService _animalService;
+        private readonly IAnimalService _animalService;
 
         public AnimalsController(IAnimalService animalService)
         {
