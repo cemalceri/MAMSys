@@ -1,9 +1,4 @@
-﻿using MAMSys.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MAMSys.Entites.Concrete
+﻿namespace MAMSys.Core.Entities.Concrete
 {
     public class RolKullanici:IEntity
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
+using MAMSys.Core.Entities.Concrete;
 using MAMSys.DataAccess.Abstract;
 using MAMSys.Entites.Concrete;
 using Microsoft.EntityFrameworkCore;

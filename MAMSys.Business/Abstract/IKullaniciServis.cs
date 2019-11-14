@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MAMSys.Core.Entities.Concrete;
 using MAMSys.Entites.Concrete;
 
 namespace MAMSys.Business.Abstract

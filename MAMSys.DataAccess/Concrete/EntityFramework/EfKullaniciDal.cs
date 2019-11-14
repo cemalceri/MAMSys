@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using  System.Linq;
+using MAMSys.Core.Entities.Concrete;
 
 
 namespace MAMSys.DataAccess.Concrete.EntityFramework
