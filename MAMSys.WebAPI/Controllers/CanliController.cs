@@ -6,19 +6,19 @@ namespace MAMSys.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AnimalsController : ControllerBase
+    public class CanliController : ControllerBase
     {
-        private readonly IAnimalService _animalService;
+        private readonly ICanliServis _Canliervice;
 
-        public AnimalsController(IAnimalService animalService)
+        public CanliController(ICanliServis Canliervice)
         {
-            _animalService = animalService;
+            _Canliervice = Canliervice;
         }
 
         [HttpGet("getall")]
         public IActionResult GetList()
         {
-            var result = _animalService.GetList();
+            var result = _Canliervice.GetList();
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -30,7 +30,7 @@ namespace MAMSys.WebAPI.Controllers
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
-            var result = _animalService.GetById(id);
+            var result = _Canliervice.GetById(id);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -42,7 +42,7 @@ namespace MAMSys.WebAPI.Controllers
         [HttpGet("getlistbyirkid")]
         public IActionResult GetByIrkId(int id)
         {
-            var result = _animalService.GetListByIrkId(id);
+            var result = _Canliervice.GetListByIrkId(id);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -52,9 +52,9 @@ namespace MAMSys.WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Animal animal)
+        public IActionResult Add(Canli Canli)
         {
-            var result = _animalService.Add(animal);
+            var result = _Canliervice.Add(Canli);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -64,9 +64,9 @@ namespace MAMSys.WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Animal animal)
+        public IActionResult Update(Canli Canli)
         {
-            var result = _animalService.Add(animal);
+            var result = _Canliervice.Add(Canli);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -76,9 +76,9 @@ namespace MAMSys.WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Animal animal)
+        public IActionResult Delete(Canli Canli)
         {
-            var result = _animalService.Delete(animal);
+            var result = _Canliervice.Delete(Canli);
             if (result.Success)
             {
                 return Ok(result.Message);

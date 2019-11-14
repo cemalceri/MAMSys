@@ -8,13 +8,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MAMSys.DataAccess.Concrete.EntityFramework.Context
 {
-    public class MamsysContext:DbContext
+    public class MAMSysContext:DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=K2PC1UGE55\SQLEXPRESS; Initial Catalog=MAMSys; Integrated Security=SSPI");
         }
 
-        public DbSet<Animal> Animals { get; set; }
+        public DbSet<Canli> Canli { get; set; }
+        public DbSet<Kullanici> Kullanici { get; set; }
+        public DbSet<Rol> Rol { get; set; }
+        public DbSet<RolKullanici> RolKullanici { get; set; }
+
+
     }
 }

@@ -8,7 +8,7 @@ using MAMSys.Entites.Concrete;
 
 namespace MAMSys.DataAccess.Concrete.EntityFramework
 {
-    public class EfAnimalDal : EfEntityRepositoryBase<Animal, MamsysContext>, IAnimalDal
+    public class EfCanliDal : EfEntityRepositoryBase<Canli, MAMSysContext>, ICanliDal
     {
     }
 }

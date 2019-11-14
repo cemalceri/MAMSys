@@ -6,7 +6,7 @@ using MAMSys.Entites.Concrete;
 
 namespace MAMSys.DataAccess.Abstract
 {
-    public interface IAnimalDal:IEntityRepository<Animal>
+    public interface ICanliDal : IEntityRepository<Canli>
     {
     }
 }

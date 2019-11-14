@@ -13,8 +13,11 @@ namespace MAMSys.Business.DependecyResolver.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AnimalManager>().As<IAnimalService>();
-            builder.RegisterType<EfAnimalDal>().As<IAnimalDal>();
+            builder.RegisterType<CanliManager>().As<ICanliServis>();
+            builder.RegisterType<EfCanliDal>().As<ICanliDal>();
+
+            builder.RegisterType<KullaniciManager>().As<IKullaniciServis>();
+            builder.RegisterType<EfKullaniciDal>().As<IKullaniciDal>();
         }
     }
 }
