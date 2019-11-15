@@ -6,10 +6,10 @@ using MAMSys.Entites.Concrete;
 
 namespace MAMSys.Business.Abstract
 {
-    public interface IKullaniciServis
+    public interface IKullaniciService
     {
         List<Rol> RolGetir(Kullanici kullanici);
         Kullanici Ekle(Kullanici kullanici);
-        Kullanici GetirMailIle(string mail);
+        Kullanici GetirByMail(string mail);
     }
 }

@@ -7,6 +7,6 @@ namespace MAMSys.Core.Security.Jwt
    public class AccessToken
     {
         public string Token { get; set; }
-        public DateTime BitisSuresi { get; set; }
+        public DateTime GecerlilikTarihi { get; set; }
     }
 }

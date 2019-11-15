@@ -8,7 +8,7 @@ using MAMSys.DataAccess.Abstract;
 
 namespace MAMSys.Business.Concrete
 {
-    public class KullaniciManager : IKullaniciServis
+    public class KullaniciManager : IKullaniciService
     {
         private IKullaniciDal _kullaniciDal;
 
@@ -21,7 +21,7 @@ namespace MAMSys.Business.Concrete
            return _kullaniciDal.Ekle(kullanici);
         }
 
-        public Kullanici GetirMailIle(string mail)
+        public Kullanici GetirByMail(string mail)
         {
             return _kullaniciDal.Getir(t => t.EPosta == mail);
         }

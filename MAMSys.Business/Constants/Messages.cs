@@ -10,5 +10,8 @@ namespace MAMSys.Business.Constants
         public static string HayvanGuncellendi = "Kayıt güncellendi.";
         public static string HayvanSilindi = "Kayıt silindi.";
 
+        public static string KullaniciBulunamadi = "Kayıtlı kullanıcı bulunamadı.";
+
+
     }
 }

@@ -16,7 +16,7 @@ namespace MAMSys.Business.DependecyResolver.Autofac
             builder.RegisterType<CanliManager>().As<ICanliServis>();
             builder.RegisterType<EfCanliDal>().As<ICanliDal>();
 
-            builder.RegisterType<KullaniciManager>().As<IKullaniciServis>();
+            builder.RegisterType<KullaniciManager>().As<IKullaniciService>();
             builder.RegisterType<EfKullaniciDal>().As<IKullaniciDal>();
         }
     }
