@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 
-namespace MAMSys.Core.Security.Encryption
+namespace MAMSys.Core.Utilities.Security.Encryption
 {
    public  class SingninCredentialsHelper
     {

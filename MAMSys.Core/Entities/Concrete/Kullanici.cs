@@ -8,13 +8,13 @@
         public string Adi { get; set; }
         public string Soyadi { get; set; }
         public string TCKN { get; set; }
-        public string EPosta { get; set; }
-        public string EPosta2 { get; set; }
+        public string EMail { get; set; }
+        public string EMail2 { get; set; }
         public string GSM { get; set; }
         public string TelNo { get; set; }
         public string Faks { get; set; }
-        public string SifreTuzu { get; set; }
-        public string Sifre { get; set; }
+        public byte[] SifreTuzu { get; set; }
+        public byte[] Sifre { get; set; }
         public bool Durum { get; set; }
         public string Aciklama { get; set; }
         public int TipId { get; set; }

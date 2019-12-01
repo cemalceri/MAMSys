@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,16 @@ namespace MAMSys.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //Ýsteðin hangi adreslerden kabul edileceði ayarý
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin",x=>x.WithOrigins("https://localhost:3000"));
+
+            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,11 +47,14 @@ namespace MAMSys.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder.WithOrigins("https://localhost:3000").AllowAnyHeader());
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MAMSys.Core.Utilities.Result
 {
-    class SuccessResult:Result
+    public class SuccessResult:Result
     {
         public SuccessResult(bool success, string message) : base(true, message)
         {

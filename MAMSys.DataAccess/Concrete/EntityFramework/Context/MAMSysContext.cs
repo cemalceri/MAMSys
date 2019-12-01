@@ -13,7 +13,7 @@ namespace MAMSys.DataAccess.Concrete.EntityFramework.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=K2PC1UGE55\SQLEXPRESS; Initial Catalog=MAMSys; Integrated Security=SSPI");
+            optionsBuilder.UseSqlServer(@"Data Source = 213.128.77.18; Initial Catalog = MAMSys; User Id = sa; password = Bil2002TAY!; ");
         }
 
         public DbSet<Canli> Canli { get; set; }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using MAMSys.Core.Entities.Concrete;
 
-namespace MAMSys.Core.Security.Jwt
+namespace MAMSys.Core.Utilities.Security.Jwt
 {
     public interface ITokenHelper
     {

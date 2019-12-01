@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using MAMSys.Core.Entities.Concrete;
 using MAMSys.Core.Extensions;
-using MAMSys.Core.Security.Encryption;
+using MAMSys.Core.Security.Jwt;
+using MAMSys.Core.Utilities.Security.Encryption;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace MAMSys.Core.Security.Jwt
+namespace MAMSys.Core.Utilities.Security.Jwt
 {
     public class JwtHelper : ITokenHelper
     {
@@ -56,7 +56,7 @@ namespace MAMSys.Core.Security.Jwt
             var claims = new List<Claim>();
             claims.AdEkle(kullanici.Adi + kullanici.Soyadi);
             claims.IdEkle(kullanici.Id.ToString());
-            claims.MailEkle(kullanici.EPosta);
+            claims.MailEkle(kullanici.EMail);
             claims.RolEkle(roller.Select(x => x.Adi).ToArray());
             return claims;
         }

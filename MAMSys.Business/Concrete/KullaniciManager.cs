@@ -23,7 +23,7 @@ namespace MAMSys.Business.Concrete
 
         public Kullanici GetirByMail(string mail)
         {
-            return _kullaniciDal.Getir(t => t.EPosta == mail);
+            return _kullaniciDal.Getir(t => t.EMail == mail);
         }
 
         public List<Rol> RolGetir(Kullanici kullanici)

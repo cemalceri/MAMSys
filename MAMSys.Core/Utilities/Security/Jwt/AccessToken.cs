@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace MAMSys.Core.Security.Jwt
+namespace MAMSys.Core.Utilities.Security.Jwt
 {
    public class AccessToken
     {
