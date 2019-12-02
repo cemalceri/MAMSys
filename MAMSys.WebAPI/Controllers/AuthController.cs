@@ -50,7 +50,7 @@ namespace MAMSys.WebAPI.Controllers
             var result = _authService.AccessTokenOlustur(kullaniciKayit.Data);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result.Data);
             }
 
             return BadRequest(result.Message);

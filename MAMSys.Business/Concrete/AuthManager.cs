@@ -34,7 +34,8 @@ namespace MAMSys.Business.Concrete
                 Soyadi = kullaniciKayitDto.Soyadi,
                 Sifre = sifreHash,
                 SifreTuzu = sifreTuz,
-                Durum = true
+                Durum = true,
+                TipId = 1
             };
             _kullaniciService.Ekle(kullanici);
             return new SuccessDataResult<Kullanici>(kullanici, Messages.KullaniciKaydedildi);
@@ -42,7 +43,7 @@ namespace MAMSys.Business.Concrete
 
         public IDataResult<Kullanici> Giris(KullaniciGirisDto kullaniciGirisDto)
         {
-            var kullanici = _kullaniciService.GetirByMail(kullaniciGirisDto.MailAdresi);
+            var kullanici = _kullaniciService.GetirByMail(kullaniciGirisDto.Mail);
             if (kullanici == null)
             {
                 return new ErrorDataResult<Kullanici>(Messages.KullaniciBulunamadi);

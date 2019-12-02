@@ -17,7 +17,7 @@ namespace MAMSys.Core.Utilities.Security.Hashing
 
         public static bool sifreHashDogrula(string sifre, byte[] sifrehash, byte[] sifreTuz)
         {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(sifreTuz))
             {
                 var hashDegeri = hmac.ComputeHash(Encoding.UTF8.GetBytes(sifre));
                 for (int i = 0; i < hashDegeri.Length; i++)

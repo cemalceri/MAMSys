@@ -8,7 +8,7 @@ namespace MAMSys.Entites.Dtos
     public class KullaniciGirisDto : IDto
     {
         public string KullaniciAdi { get; set; }
-        public string MailAdresi { get; set; }
+        public string Mail { get; set; }
 
         public string Sifre { get; set; }
     }

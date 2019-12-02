@@ -23,14 +23,14 @@ namespace MAMSys.Core.Utilities.Security.Jwt
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            _tokenAyarlari = Configuration.GetSection("TokenAyarlari").Get<TokenAyarlari>();
-            _gecerlilikTarihi = DateTime.Now.AddMinutes(_tokenAyarlari.GecerlilikSuresi);
+            _tokenAyarlari = Configuration.GetSection("TokenOptions").Get<TokenAyarlari>();
+            _gecerlilikTarihi = DateTime.Now.AddMinutes(_tokenAyarlari.Expiration);
         }
 
 
         public AccessToken CreateToken(Kullanici kullanici, List<Rol> roller)
         {
-            var guvenlikAnahtari = SecurityKeyHelper.GuvenlikAnahtariOlustur(_tokenAyarlari.GuvenlikAnahtari);
+            var guvenlikAnahtari = SecurityKeyHelper.GuvenlikAnahtariOlustur(_tokenAyarlari.SecurityKey);
             var imzaliKimlik = SingninCredentialsHelper.ImzaliKimlikOlustur(guvenlikAnahtari);
             var jwt = JwtTokenOlustur(_tokenAyarlari, kullanici, imzaliKimlik, roller);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
@@ -41,8 +41,8 @@ namespace MAMSys.Core.Utilities.Security.Jwt
         public JwtSecurityToken JwtTokenOlustur(TokenAyarlari tokenAyarlari, Kullanici kullanici, SigningCredentials imzaliKimlik, List<Rol> roller)
         {
             var jwt = new JwtSecurityToken(
-                issuer: tokenAyarlari.Saglayici,
-                audience: tokenAyarlari.Izleme,
+                issuer: tokenAyarlari.Issuer,
+                audience: tokenAyarlari.Audience,
                 expires: _gecerlilikTarihi,
                 notBefore: DateTime.Now,
                 signingCredentials: imzaliKimlik,

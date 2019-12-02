@@ -7,10 +7,10 @@ namespace MAMSys.Core.Security.Jwt
 {
     public class TokenAyarlari
     {
-        public string Izleme { get; set; }  
-        public string Saglayici { get; set; }
-        public int GecerlilikSuresi { get; set; }
-        public string GuvenlikAnahtari { get; set; }
+        public string Audience { get; set; }  
+        public string Issuer { get; set; }
+        public int Expiration { get; set; }
+        public string SecurityKey { get; set; }
 
 
     }
