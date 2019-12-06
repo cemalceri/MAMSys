@@ -1,5 +1,6 @@
 ﻿using MAMSys.Business.Abstract;
 using MAMSys.Entites.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MAMSys.WebAPI.Controllers
@@ -16,6 +17,7 @@ namespace MAMSys.WebAPI.Controllers
         }
 
         [HttpGet("getall")]
+        [Authorize("Canli.getList")]
         public IActionResult GetList()
         {
             var result = _Canliervice.GetList();
