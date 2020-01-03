@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Castle.DynamicProxy;
 using FluentValidation;
 using MAMSys.Core.CrossCuttingConcern.Validation.FluentValidation;
 using MAMSys.Core.Utilities.Interceptors;
 using MAMSys.Core.Utilities.Messages;
 
-namespace MAMSys.Core.Aspects.Autofac
+namespace MAMSys.Core.Aspects.Autofac.Validation
 {
     public class ValidationAspect : MethodInterception
     {

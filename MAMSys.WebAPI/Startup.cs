@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MAMSys.Core.DependencyResolver;
+using MAMSys.Core.Extensions;
 using MAMSys.Core.Security.Jwt;
+using MAMSys.Core.Utilities.IoC;
 using MAMSys.Core.Utilities.Security.Encryption;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -52,6 +55,10 @@ namespace MAMSys.WebAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = SecurityKeyHelper.GuvenlikAnahtariOlustur(tokenOptions.SecurityKey)
                 };
+            });
+            services.AddDependencyResolver(new ICoreModule[]
+            {
+                new CoreModule(),
             });
         }
 
