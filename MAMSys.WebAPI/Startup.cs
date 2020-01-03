@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MAMSys.Core.DependencyResolver;
+using MAMSys.Core.Extensions;
 using MAMSys.Core.Security.Jwt;
 using MAMSys.Core.Utilities.Security.Encryption;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,7 +35,7 @@ namespace MAMSys.WebAPI
             //Ýsteðin hangi adreslerden kabul edileceði ayarý
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowOrigin",x=>x.WithOrigins("https://localhost:3000"));
+                options.AddPolicy("AllowOrigin", x => x.WithOrigins("https://localhost:3000"));
 
             });
 
@@ -41,7 +43,7 @@ namespace MAMSys.WebAPI
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
             {
-                options.TokenValidationParameters= new TokenValidationParameters
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
 
                     ValidateIssuer = true,
@@ -52,6 +54,11 @@ namespace MAMSys.WebAPI
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = SecurityKeyHelper.GuvenlikAnahtariOlustur(tokenOptions.SecurityKey)
                 };
+            });
+
+            services.AddDependencyResolvers(new CoreModule[]
+            {
+                new CoreModule(),
             });
         }
 
