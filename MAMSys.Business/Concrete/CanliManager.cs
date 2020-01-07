@@ -6,6 +6,8 @@ using MAMSys.Business.Abstract;
 using MAMSys.Business.Constants;
 using MAMSys.Business.ValidationRules.FluentValidation;
 using MAMSys.Core.Aspects.Autofac;
+using MAMSys.Core.Aspects.Autofac.Caching;
+using MAMSys.Core.Aspects.Autofac.Validation;
 using MAMSys.Core.Utilities.Result;
 using MAMSys.DataAccess.Abstract;
 using MAMSys.Entites.Concrete;
@@ -36,6 +38,7 @@ namespace MAMSys.Business.Concrete
             return new SuccessDataResult<List<Canli>>(_CanliDal.GetirListe(x => x.IrkId == irkId).ToList());
         }
         [ValidationAspect(typeof(CanliValidator))]
+        [CacheRemoveAspect("ICanliService.GetList")]
         public IDataResult<Canli> Add(Canli Canli)
         {
             return new SuccessDataResult<Canli>(_CanliDal.Ekle(Canli), Messages.HayvanEklendi);
