@@ -32,7 +32,7 @@ namespace MAMSys.Core.Utilities.Interceptors
             {
                 invocation.Proceed();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 isSuccess = false;
                 OnException(invocation);
@@ -41,7 +41,7 @@ namespace MAMSys.Core.Utilities.Interceptors
             finally
             {
                 if (isSuccess)
-                OnSuccess(invocation);
+                    OnSuccess(invocation);
             }
 
             OnAfter(invocation);

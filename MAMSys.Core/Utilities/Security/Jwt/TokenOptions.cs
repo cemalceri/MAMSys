@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace MAMSys.Core.Security.Jwt
+﻿namespace MAMSys.Core.Utilities.Security.Jwt
 {
-    public class TokenAyarlari
+    public class TokenOptions
     {
         public string Audience { get; set; }  
         public string Issuer { get; set; }

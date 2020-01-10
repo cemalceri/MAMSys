@@ -25,34 +25,34 @@ namespace MAMSys.Business.Concrete
 
         public IDataResult<Canli> GetById(int Id)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Getir(x => x.Id == Id));
+            return new SuccessDataResult<Canli>(_CanliDal.Get(x => x.Id == Id));
         }
 
         public IDataResult<List<Canli>> GetList()
         {
-            return new SuccessDataResult<List<Canli>>(_CanliDal.GetirListe().ToList());
+            return new SuccessDataResult<List<Canli>>(_CanliDal.GetList().ToList());
         }
 
         public IDataResult<List<Canli>> GetListByIrkId(int irkId)
         {
-            return new SuccessDataResult<List<Canli>>(_CanliDal.GetirListe(x => x.IrkId == irkId).ToList());
+            return new SuccessDataResult<List<Canli>>(_CanliDal.GetList(x => x.IrkId == irkId).ToList());
         }
         [ValidationAspect(typeof(CanliValidator))]
         [CacheRemoveAspect("ICanliService.GetList")]
-        public IDataResult<Canli> Add(Canli Canli)
+        public IDataResult<Canli> Add(Canli canli)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Ekle(Canli), Messages.HayvanEklendi);
+            return new SuccessDataResult<Canli>(_CanliDal.Add(canli), Messages.HayvanEklendi);
 
         }
 
-        public IDataResult<Canli> Update(Canli Canli)
+        public IDataResult<Canli> Update(Canli canli)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Guncelle(Canli), Messages.HayvanEklendi);
+            return new SuccessDataResult<Canli>(_CanliDal.Update(canli), Messages.HayvanEklendi);
         }
 
-        public IDataResult<Canli> Delete(Canli Canli)
+        public IDataResult<Canli> Delete(Canli canli)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Sil(Canli), Messages.HayvanEklendi);
+            return new SuccessDataResult<Canli>(_CanliDal.Delete(canli), Messages.HayvanEklendi);
 
         }
     }

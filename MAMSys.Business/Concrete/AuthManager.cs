@@ -4,7 +4,6 @@ using System.Text;
 using MAMSys.Business.Abstract;
 using MAMSys.Business.Constants;
 using MAMSys.Core.Entities.Concrete;
-using MAMSys.Core.Security.Jwt;
 using MAMSys.Core.Utilities.Result;
 using MAMSys.Core.Utilities.Security.Hashing;
 using MAMSys.Core.Utilities.Security.Jwt;
@@ -23,7 +22,7 @@ namespace MAMSys.Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<Kullanici> Kaydet(KullaniciKayitDto kullaniciKayitDto, string sifre)
+        public IDataResult<Kullanici> CreateUser(KullaniciKayitDto kullaniciKayitDto, string sifre)
         {
             byte[] sifreHash, sifreTuz;
             HashingHelper.sifreHashOlustur(sifre, out sifreHash, out sifreTuz);
@@ -37,11 +36,11 @@ namespace MAMSys.Business.Concrete
                 Durum = true,
                 TipId = 1
             };
-            _kullaniciService.Ekle(kullanici);
+            _kullaniciService.Add(kullanici);
             return new SuccessDataResult<Kullanici>(kullanici, Messages.KullaniciKaydedildi);
         }
 
-        public IDataResult<Kullanici> Giris(KullaniciGirisDto kullaniciGirisDto)
+        public IDataResult<Kullanici> Login(KullaniciGirisDto kullaniciGirisDto)
         {
             var kullanici = _kullaniciService.GetirByMail(kullaniciGirisDto.Mail);
             if (kullanici == null)
@@ -56,7 +55,7 @@ namespace MAMSys.Business.Concrete
             return new SuccessDataResult<Kullanici>(kullanici, Messages.GirisBasarili);
         }
 
-        public IResult KullaniciVarMi(string email)
+        public IResult IsUserExist(string email)
         {
             if (_kullaniciService.GetirByMail(email) != null)
             {
@@ -66,9 +65,9 @@ namespace MAMSys.Business.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<AccessToken> AccessTokenOlustur(Kullanici kullanici)
+        public IDataResult<AccessToken> CreateAccessToken(Kullanici kullanici)
         {
-            var roller = _kullaniciService.RolGetir(kullanici);
+            var roller = _kullaniciService.GetRols(kullanici);
             var accesToken = _tokenHelper.CreateToken(kullanici, roller);
             return new SuccessDataResult<AccessToken>(accesToken, Messages.AccesTokenOlusturuldu);
         }

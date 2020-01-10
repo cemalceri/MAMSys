@@ -23,13 +23,13 @@ namespace MAMSys.WebAPI.Controllers
         [HttpPost("login")]
         public ActionResult Login(KullaniciGirisDto kullaniciGirisDto)
         {
-            var kullaniciGiris = _authService.Giris(kullaniciGirisDto);
+            var kullaniciGiris = _authService.Login(kullaniciGirisDto);
             if (!kullaniciGiris.Success)
             {
                 return BadRequest(kullaniciGiris.Message);
             }
 
-            var result = _authService.AccessTokenOlustur(kullaniciGiris.Data);
+            var result = _authService.CreateAccessToken(kullaniciGiris.Data);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -41,13 +41,13 @@ namespace MAMSys.WebAPI.Controllers
         [HttpPost("kayit")]
         public ActionResult Kaydet(KullaniciKayitDto kullaniciKayitDto)
         {
-            var kayitliMi = _authService.KullaniciVarMi(kullaniciKayitDto.Mail);
+            var kayitliMi = _authService.IsUserExist(kullaniciKayitDto.Mail);
             if (!kayitliMi.Success)
             {
                 return BadRequest(kayitliMi.Message);
             }
-            var kullaniciKayit = _authService.Kaydet(kullaniciKayitDto,kullaniciKayitDto.Sifre);
-            var result = _authService.AccessTokenOlustur(kullaniciKayit.Data);
+            var kullaniciKayit = _authService.CreateUser(kullaniciKayitDto,kullaniciKayitDto.Sifre);
+            var result = _authService.CreateAccessToken(kullaniciKayit.Data);
             if (result.Success)
             {
                 return Ok(result.Data);

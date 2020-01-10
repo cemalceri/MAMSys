@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using MAMSys.Core.Entities.Concrete;
 using MAMSys.Core.Extensions;
-using MAMSys.Core.Security.Jwt;
 using MAMSys.Core.Utilities.Security.Encryption;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -17,47 +16,48 @@ namespace MAMSys.Core.Utilities.Security.Jwt
         public IConfiguration Configuration { get; }
 
 
-        private TokenAyarlari _tokenAyarlari;
-        private DateTime _gecerlilikTarihi;
+        private TokenOptions _tokenOptions;
+        private DateTime _accesTokenExpiration;
 
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            _tokenAyarlari = Configuration.GetSection("TokenOptions").Get<TokenAyarlari>();
-            _gecerlilikTarihi = DateTime.Now.AddMinutes(_tokenAyarlari.Expiration);
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            
         }
 
 
         public AccessToken CreateToken(Kullanici kullanici, List<Rol> roller)
         {
-            var guvenlikAnahtari = SecurityKeyHelper.GuvenlikAnahtariOlustur(_tokenAyarlari.SecurityKey);
-            var imzaliKimlik = SingninCredentialsHelper.ImzaliKimlikOlustur(guvenlikAnahtari);
-            var jwt = JwtTokenOlustur(_tokenAyarlari, kullanici, imzaliKimlik, roller);
+            _accesTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.Expiration);
+            var securityKey = SecurityKeyHelper.GuvenlikAnahtariOlustur(_tokenOptions.SecurityKey);
+            var singningCredentials = SingninCredentialsHelper.ImzaliKimlikOlustur(securityKey);
+            var jwt = JwtTokenOlustur(_tokenOptions, kullanici, singningCredentials, roller);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
-            return new AccessToken {Token = token, GecerlilikTarihi = _gecerlilikTarihi};
+            return new AccessToken {Token = token, GecerlilikTarihi = _accesTokenExpiration};
         }
 
-        public JwtSecurityToken JwtTokenOlustur(TokenAyarlari tokenAyarlari, Kullanici kullanici, SigningCredentials imzaliKimlik, List<Rol> roller)
+        public JwtSecurityToken JwtTokenOlustur(TokenOptions tokenOptions, Kullanici kullanici, SigningCredentials singningCredentials, List<Rol> rols)
         {
             var jwt = new JwtSecurityToken(
-                issuer: tokenAyarlari.Issuer,
-                audience: tokenAyarlari.Audience,
-                expires: _gecerlilikTarihi,
+                issuer: tokenOptions.Issuer,
+                audience: tokenOptions.Audience,
+                expires: _accesTokenExpiration,
                 notBefore: DateTime.Now,
-                signingCredentials: imzaliKimlik,
-                claims: ClaimGetir(kullanici, roller)
+                signingCredentials: singningCredentials,
+                claims: ClaimGetir(kullanici, rols)
                 );
             return jwt;
         }
 
-        private IEnumerable<Claim> ClaimGetir(Kullanici kullanici, List<Rol> roller)
+        private IEnumerable<Claim> ClaimGetir(Kullanici kullanici, List<Rol> rols)
         {
             var claims = new List<Claim>();
-            claims.AdEkle(kullanici.Adi + kullanici.Soyadi);
-            claims.IdEkle(kullanici.Id.ToString());
-            claims.MailEkle(kullanici.EMail);
-            claims.RolEkle(roller.Select(x => x.Adi).ToArray());
+            claims.AddName(kullanici.Adi + kullanici.Soyadi);
+            claims.AddId(kullanici.Id.ToString());
+            claims.AddMail(kullanici.EMail);
+            claims.AddRole(rols.Select(x => x.Adi).ToArray());
             return claims;
         }
     }
