@@ -17,6 +17,7 @@ namespace MAMSys.Business.Constants
         public static string KullaniciKayitli = "Kullanıcı Kayıtlı.";
 
         public static string KullaniciKaydedildi = "Kullanıcı kaydedildi.";
-        public static string AccesTokenOlusturuldu = "Access Token Oluşturuldu";
+        public static string AccesTokenOlusturuldu = "Access Token oluşturuldu.";
+        public static string AuthorizationDenied = "Yetkiniz yok!";
     }
 }

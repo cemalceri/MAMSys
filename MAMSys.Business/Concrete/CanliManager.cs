@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MAMSys.Business.Abstract;
+using MAMSys.Business.BusinessAspects.Autofac;
 using MAMSys.Business.Constants;
 using MAMSys.Business.ValidationRules.FluentValidation;
 using MAMSys.Core.Aspects.Autofac;
 using MAMSys.Core.Aspects.Autofac.Caching;
+using MAMSys.Core.Aspects.Autofac.Performance;
 using MAMSys.Core.Aspects.Autofac.Validation;
 using MAMSys.Core.Utilities.Result;
 using MAMSys.DataAccess.Abstract;
@@ -16,43 +18,43 @@ namespace MAMSys.Business.Concrete
 {
     class CanliManager : ICanliServis
     {
-        private ICanliDal _CanliDal;
+        private readonly ICanliDal _canliDal;
 
-        public CanliManager(ICanliDal CanliDal)
+        public CanliManager(ICanliDal canliDal)
         {
-            _CanliDal = CanliDal;
+            _canliDal = canliDal;
         }
 
-        public IDataResult<Canli> GetById(int Id)
+        public IDataResult<Canli> GetById(int id)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Getir(x => x.Id == Id));
+            return new SuccessDataResult<Canli>(_canliDal.Getir(x => x.Id == id));
         }
 
         public IDataResult<List<Canli>> GetList()
         {
-            return new SuccessDataResult<List<Canli>>(_CanliDal.GetirListe().ToList());
+            return new SuccessDataResult<List<Canli>>(_canliDal.GetirListe().ToList());
         }
-
+        [PerformanceAspect(1)]
         public IDataResult<List<Canli>> GetListByIrkId(int irkId)
         {
-            return new SuccessDataResult<List<Canli>>(_CanliDal.GetirListe(x => x.IrkId == irkId).ToList());
+            return new SuccessDataResult<List<Canli>>(_canliDal.GetirListe(x => x.IrkId == irkId).ToList());
         }
         [ValidationAspect(typeof(CanliValidator))]
         [CacheRemoveAspect("ICanliService.GetList")]
-        public IDataResult<Canli> Add(Canli Canli)
+        public IDataResult<Canli> Add(Canli canli)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Ekle(Canli), Messages.HayvanEklendi);
+            return new SuccessDataResult<Canli>(_canliDal.Ekle(canli), Messages.HayvanEklendi);
 
         }
-
-        public IDataResult<Canli> Update(Canli Canli)
+        [SecuredOperation("Canli.Update,Admin")]
+        public IDataResult<Canli> Update(Canli canli)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Guncelle(Canli), Messages.HayvanEklendi);
+            return new SuccessDataResult<Canli>(_canliDal.Guncelle(canli), Messages.HayvanEklendi);
         }
 
-        public IDataResult<Canli> Delete(Canli Canli)
+        public IDataResult<Canli> Delete(Canli canli)
         {
-            return new SuccessDataResult<Canli>(_CanliDal.Sil(Canli), Messages.HayvanEklendi);
+            return new SuccessDataResult<Canli>(_canliDal.Sil(canli), Messages.HayvanEklendi);
 
         }
     }
