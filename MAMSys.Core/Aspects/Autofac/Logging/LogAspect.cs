@@ -18,7 +18,7 @@ namespace MAMSys.Core.Aspects.Autofac.Logging
         {
             if (loggerService.BaseType != typeof(LoggerServiceBase))
             {
-                throw new Exception(AspectMessages.WrongLoggerServiceType);
+                throw new System.Exception(AspectMessages.WrongLoggerServiceType);
             }
 
             _loggerServiceBase = Activator.CreateInstance(loggerService) as LoggerServiceBase;
