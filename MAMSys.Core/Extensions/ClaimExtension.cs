@@ -7,24 +7,24 @@ namespace MAMSys.Core.Extensions
 {
     public static class ClaimExtension
     {
-        public static void MailEkle(this ICollection<Claim> claims, string email)
+        public static void AddMail(this ICollection<Claim> claims, string email)
         {
             claims.Add(new Claim(ClaimTypes.Email, email));
         }
 
-        public static void AdEkle(this ICollection<Claim> claims, string ad)
+        public static void AddName(this ICollection<Claim> claims, string name)
         {
-            claims.Add(new Claim(ClaimTypes.Name, ad));
+            claims.Add(new Claim(ClaimTypes.Name, name));
         }
 
-        public static void IdEkle(this ICollection<Claim> claims, string id)
+        public static void AddId(this ICollection<Claim> claims, string id)
         {
             claims.Add(new Claim(ClaimTypes.NameIdentifier, id));
         }
 
-        public static void RolEkle(this ICollection<Claim> claims, string[] roller)
+        public static void AddRole(this ICollection<Claim> claims, string[] rols)
         {
-            foreach (var rol in roller)
+            foreach (var rol in rols)
             {
                 claims.Add(new Claim(ClaimTypes.Role, rol));
             }

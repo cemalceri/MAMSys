@@ -9,6 +9,6 @@ namespace MAMSys.DataAccess.Abstract
 {
     public interface IKullaniciDal : IEntityRepository<Kullanici>
     {
-        List<Rol> RolGetir(Kullanici kullanici);
+        List<Rol> GetRols(Kullanici kullanici);
     }
 }

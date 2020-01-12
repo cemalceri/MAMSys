@@ -8,8 +8,8 @@ namespace MAMSys.Business.Abstract
 {
     public interface IKullaniciService
     {
-        List<Rol> RolGetir(Kullanici kullanici);
-        Kullanici Ekle(Kullanici kullanici);
+        List<Rol> GetRols(Kullanici kullanici);
+        Kullanici Add(Kullanici kullanici);
         Kullanici GetirByMail(string mail);
     }
 }

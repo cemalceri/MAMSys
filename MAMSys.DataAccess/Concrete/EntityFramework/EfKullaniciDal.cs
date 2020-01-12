@@ -14,7 +14,7 @@ namespace MAMSys.DataAccess.Concrete.EntityFramework
 {
     public class EfKullaniciDal : EfEntityRepositoryBase<Kullanici, MAMSysContext>, IKullaniciDal
     {
-        public List<Rol> RolGetir(Kullanici kullanici)
+        public List<Rol> GetRols(Kullanici kullanici)
         {
             using (var context = new MAMSysContext())
             {

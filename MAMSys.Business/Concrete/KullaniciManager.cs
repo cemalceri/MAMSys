@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MAMSys.Core.Aspects.Autofac.Caching;
+using MAMSys.Core.Aspects.Autofac.Logging;
+using MAMSys.Core.CrossCuttingConcern.Logging.Log4Net.Loggers;
 using MAMSys.Core.Entities.Concrete;
 using MAMSys.DataAccess.Abstract;
 
@@ -17,20 +19,20 @@ namespace MAMSys.Business.Concrete
         {
             _kullaniciDal = kullaniciDal;
         }
-        public Kullanici Ekle(Kullanici kullanici)
+        public Kullanici Add(Kullanici kullanici)
         {
-            return _kullaniciDal.Ekle(kullanici);
+            return _kullaniciDal.Add(kullanici);
         }
-
+        [LogAspect(typeof(FileLogger))]
         public Kullanici GetirByMail(string mail)
         {
-            return _kullaniciDal.Getir(t => t.EMail == mail);
+            return _kullaniciDal.Get(t => t.EMail == mail);
         }
 
         [CacheAspect(1)]
-        public List<Rol> RolGetir(Kullanici kullanici)
+        public List<Rol> GetRols(Kullanici kullanici)
         {
-            return _kullaniciDal.RolGetir(kullanici);
+            return _kullaniciDal.GetRols(kullanici);
         }
     }
 }

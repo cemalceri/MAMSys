@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MAMSys.Core.DependencyResolver;
 using MAMSys.Core.Extensions;
-using MAMSys.Core.Security.Jwt;
 using MAMSys.Core.Utilities.IoC;
 using MAMSys.Core.Utilities.Security.Encryption;
+using MAMSys.Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +40,7 @@ namespace MAMSys.WebAPI
 
             });
 
-            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenAyarlari>();
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
             {

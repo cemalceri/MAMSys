@@ -20,7 +20,7 @@ namespace MAMSys.Core.Aspects.Autofac.Transaction
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    transactionScope.Dispose();
                     throw;
                 }
             }

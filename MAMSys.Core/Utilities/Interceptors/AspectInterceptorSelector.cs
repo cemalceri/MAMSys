@@ -7,15 +7,15 @@ using Castle.DynamicProxy;
 
 namespace MAMSys.Core.Utilities.Interceptors
 {
-   public class AspectInterceptorSelector: IInterceptorSelector
+    public class AspectInterceptorSelector : IInterceptorSelector
     {
         public IInterceptor[] SelectInterceptors(Type type, MethodInfo method, IInterceptor[] interceptors)
         {
-            var classAttribute = type.GetCustomAttributes<MethodInterceptionBaseAttribute>(true).ToList();
-            var methodAttribute =
+            var classAttributes = type.GetCustomAttributes<MethodInterceptionBaseAttribute>(true).ToList();
+            var methodAttributes =
                 type.GetMethod(method.Name).GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
-            classAttribute.AddRange(methodAttribute);
-            return classAttribute.OrderBy(x => x.Priority).ToArray();
+            classAttributes.AddRange(methodAttributes);
+            return classAttributes.OrderBy(x => x.Priority).ToArray();
         }
     }
 }

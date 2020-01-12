@@ -12,7 +12,7 @@ namespace MAMSys.Core.DataAccess.EntityFramework
     where TEntity : class, IEntity, new()
     where TContext : DbContext, new()
     {
-        public TEntity Ekle(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             using (var context= new TContext())
             {
@@ -23,7 +23,7 @@ namespace MAMSys.Core.DataAccess.EntityFramework
             }
         }
 
-        public TEntity Sil(TEntity entity)
+        public TEntity Delete(TEntity entity)
         {
             using (var context = new TContext())
             {
@@ -34,7 +34,7 @@ namespace MAMSys.Core.DataAccess.EntityFramework
             }
         }
 
-        public TEntity Getir(Expression<Func<TEntity, bool>> filter)
+        public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
             using (var context = new TContext())
             {
@@ -42,7 +42,7 @@ namespace MAMSys.Core.DataAccess.EntityFramework
             }
         }
 
-        public IList<TEntity> GetirListe(Expression<Func<TEntity, bool>> filter = null)
+        public IList<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
         {
             using (var context = new TContext())
             {
@@ -52,7 +52,7 @@ namespace MAMSys.Core.DataAccess.EntityFramework
             }
         }
 
-        public TEntity Guncelle(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
             using (var context = new TContext())
             {
