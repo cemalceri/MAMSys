@@ -10,8 +10,8 @@ namespace MAMSys.Business.Abstract
 {
    public interface IAuthService
    {
-       IDataResult<Kullanici> CreateUser(KullaniciKayitDto kullaniciKayitDto, string password);
-       IDataResult<Kullanici> Login(KullaniciGirisDto kullaniciGirisDto);
+       IResult CreateUser(KullaniciKayitDto kullaniciKayitDto, string password);
+       IResult Login(KullaniciGirisDto kullaniciGirisDto);
        IResult IsUserExist(string email);
        IDataResult<AccessToken> CreateAccessToken(Kullanici kullanici);
    }

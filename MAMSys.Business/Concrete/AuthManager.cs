@@ -4,6 +4,7 @@ using System.Text;
 using MAMSys.Business.Abstract;
 using MAMSys.Business.Constants;
 using MAMSys.Core.Entities.Concrete;
+using MAMSys.Core.Utilities.Business;
 using MAMSys.Core.Utilities.Result;
 using MAMSys.Core.Utilities.Security.Hashing;
 using MAMSys.Core.Utilities.Security.Jwt;
@@ -22,8 +23,13 @@ namespace MAMSys.Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<Kullanici> CreateUser(KullaniciKayitDto kullaniciKayitDto, string sifre)
+        public IResult CreateUser(KullaniciKayitDto kullaniciKayitDto, string sifre)
         {
+            IResult result = BusinessRules.Run(IsMailAddressExist(kullaniciKayitDto.Mail));
+            if (result!=null)
+            {
+                return result;
+            }
             byte[] sifreHash, sifreTuz;
             HashingHelper.sifreHashOlustur(sifre, out sifreHash, out sifreTuz);
             var kullanici = new Kullanici
@@ -40,19 +46,19 @@ namespace MAMSys.Business.Concrete
             return new SuccessDataResult<Kullanici>(kullanici, Messages.KullaniciKaydedildi);
         }
 
-        public IDataResult<Kullanici> Login(KullaniciGirisDto kullaniciGirisDto)
+        public IResult Login(KullaniciGirisDto kullaniciGirisDto)
         {
             var kullanici = _kullaniciService.GetirByMail(kullaniciGirisDto.Mail);
             if (kullanici == null)
             {
-                return new ErrorDataResult<Kullanici>(Messages.KullaniciBulunamadi);
+                return new ErrorResult(Messages.KullaniciBulunamadi);
             }
 
-            if (!HashingHelper.sifreHashDogrula(kullaniciGirisDto.Sifre, kullanici.Sifre, kullanici.SifreTuzu))
+            if (!HashingHelper.sifreHashDogrula(kullaniciGirisDto.Sifre, kullanici.Data.Sifre, kullanici.Data.SifreTuzu))
             {
-                return new ErrorDataResult<Kullanici>(Messages.SifreHatali);
+                return new ErrorResult(Messages.SifreHatali);
             }
-            return new SuccessDataResult<Kullanici>(kullanici, Messages.GirisBasarili);
+            return new SuccessResult();
         }
 
         public IResult IsUserExist(string email)
@@ -68,8 +74,13 @@ namespace MAMSys.Business.Concrete
         public IDataResult<AccessToken> CreateAccessToken(Kullanici kullanici)
         {
             var roller = _kullaniciService.GetRols(kullanici);
-            var accesToken = _tokenHelper.CreateToken(kullanici, roller);
+            var accesToken = _tokenHelper.CreateToken(kullanici, roller.Data);
             return new SuccessDataResult<AccessToken>(accesToken, Messages.AccesTokenOlusturuldu);
+        }
+
+        private IResult IsMailAddressExist(string mailAddress)
+        {
+            return  _kullaniciService.GetirByMail(mailAddress);
         }
     }
 }

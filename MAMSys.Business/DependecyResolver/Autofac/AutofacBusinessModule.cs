@@ -30,7 +30,6 @@ namespace MAMSys.Business.DependecyResolver.Autofac
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
                 {
-
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
         }

@@ -69,7 +69,7 @@ namespace MAMSys.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.ConfigureCustomExceptionMiddleware();
             app.UseCors(builder => builder.WithOrigins("https://localhost:3000").AllowAnyHeader());
             app.UseHttpsRedirection();
 
