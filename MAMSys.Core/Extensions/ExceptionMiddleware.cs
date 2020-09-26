@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
 namespace MAMSys.Core.Extensions
 {
-   public class ExceptionMiddleware
+    public class ExceptionMiddleware
     {
         private RequestDelegate _next;
 
@@ -32,10 +33,16 @@ namespace MAMSys.Core.Extensions
         private Task HandleExceptionAsync(HttpContext httpContext, Exception e)
         {
             httpContext.Response.ContentType = "application/json";
-            httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+            httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            string message = "Internal Server Error";
+
+            if (e.GetType() == typeof(ValidationException))
+            {
+                message = e.Message;
+            }
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
-                Message = "Internal Server Error",
+                Message = message,
                 StatusCode = httpContext.Response.StatusCode
             }.ToString());
         }
